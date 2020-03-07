@@ -21,5 +21,5 @@ func main() {
 
 	contactApi := juzihudong.NewContactApi(endpoint, token)
 	resp := contactApi.GetContact(0, 10)
-	fmt.Printf("%v\n", resp.Data)
+	fmt.Printf("%+v\n", resp.Data)
 }

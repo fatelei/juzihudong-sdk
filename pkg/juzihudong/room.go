@@ -19,7 +19,8 @@ func NewRoomApi(endpoint string, token string) *RoomApi {
 
 type RoomListReponse struct {
 	Code int64 `json:"code,omitempty"`
-	Data *[]model.Room `json:"room,omitempty"`
+	Data *[]model.Room `json:"data,omitempty"`
+	Page *model.Page `json:"page,omitempty"`
 }
 
 
