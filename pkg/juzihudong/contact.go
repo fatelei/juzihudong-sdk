@@ -25,10 +25,14 @@ func NewContactApi(endpoint string, token string) *ContactApi {
 }
 
 
-func (p *ContactApi) GetContact(current int, pageSize int) *ContactListResponse {
+func (p *ContactApi) GetContact(current int, pageSize int, wxid string) *ContactListResponse {
 	param := make(map[string]string)
-	param["current"] = strconv.Itoa(current)
-	param["pageSize"] = strconv.Itoa(pageSize)
+	if len(wxid) > 0 {
+		param["wxid"] = wxid
+	} else {
+		param["current"] = strconv.Itoa(current)
+		param["pageSize"] = strconv.Itoa(pageSize)
+	}
 	body, err := p.Transport.Get("/contact/list", &param)
 	if err != nil {
 		panic(err)
