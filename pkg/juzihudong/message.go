@@ -1,9 +1,18 @@
 package juzihudong
 
-import "github.com/fatelei/juzihudong-sdk/pkg/transport"
+import (
+	"encoding/json"
+	"github.com/fatelei/juzihudong-sdk/pkg/model"
+	"github.com/fatelei/juzihudong-sdk/pkg/transport"
+)
 
 type MessageApi struct {
 	Transport *transport.Transport
+}
+
+type GetImageResponse struct {
+	Code int64 `json:"code,omitempty"`
+	Data *model.Image `json:"data,omitempty"`
 }
 
 
@@ -24,4 +33,19 @@ func (p *MessageApi) SendTextMessage(chatId string, content string) bool {
 		return false
 	}
 	return true
+}
+
+func (p *MessageApi) GetArtworkImage(chatId string, messageId string) *GetImageResponse {
+	param := make(map[string]interface{})
+	param["chatId"] = chatId
+	param["messageId"] = messageId
+	body, err := p.Transport.Post("/message/getArtworkImage", param)
+	if err != nil {
+		return nil
+	}
+	resp := GetImageResponse{}
+	if err := json.Unmarshal(body, &resp); err == nil {
+		return &resp
+	}
+	return nil
 }
