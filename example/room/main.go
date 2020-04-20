@@ -19,6 +19,6 @@ func main() {
 		return
 	}
 	roomApi := juzihudong.NewRoomApi(endpoint, token)
-	resp := roomApi.GetRooms(0, 10)
+	resp := roomApi.GetRooms(0, 10, "")
 	fmt.Printf("%+v\n", resp.Data)
 }
